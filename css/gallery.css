@@ -1,0 +1,184 @@
+/* Vextra AI — chapters: cinematic pinned horizontal gallery (#modules).
+   Markup: section.chapters > .chapters-viewport > .chapters-track > 3× article.chapter
+   Desktop: js/gallery.js pins the viewport and scrubs the track horizontally.
+   Mobile <900px / reduced motion: chapters stack vertically, no pin.
+   Nothing here hides content — JS applies entrance states only when it will animate. */
+
+.chapters { position: relative; }
+
+.chapters-viewport {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.chapters-track {
+  display: flex;
+  width: 300%;
+  height: 100%;
+  will-change: transform;
+}
+
+.chapter {
+  /* ponytail: calc(100%/3) not 100vw — 100vw includes the scrollbar gutter and
+     would drift the xPercent math ~17px per panel on Windows */
+  flex: 0 0 calc(100% / 3);
+  height: 100%;
+  position: relative;
+  overflow: hidden; /* parallax art must not bleed into neighbor panels */
+  display: grid;
+  align-items: center;
+  justify-items: start;
+  padding-inline: clamp(28px, 9vw, 150px) clamp(20px, 5vw, 64px);
+}
+
+/* layering: numeral (0) < art (1) < copy (2) */
+.chapter-num {
+  position: absolute;
+  z-index: 0;
+  left: 24vw;
+  top: 50%;
+  translate: 0 -50%; /* CSS translate stays independent of GSAP's transform x */
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26vw;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.5px currentColor;
+  opacity: 0.16;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform;
+}
+
+.chapter-art {
+  position: absolute;
+  z-index: 1;
+  right: clamp(8px, 4vw, 90px);
+  top: 50%;
+  translate: 0 -50%;
+  width: min(46vw, 660px);
+  aspect-ratio: 1;
+  opacity: 0.5;
+  pointer-events: none;
+  will-change: transform;
+}
+.chapter-art svg { width: 100%; height: 100%; display: block; }
+/* keep the 24px-viewBox icons hairline instead of 40px-fat strokes at 46vw */
+.chapter-art svg * { vector-effect: non-scaling-stroke; }
+
+.chapter-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 560px;
+}
+.chapter-title {
+  font-size: clamp(44px, 5.6vw, 84px);
+  line-height: 0.98;
+  margin-top: 18px;
+}
+.chapter-inner > p {
+  color: var(--muted);
+  font-size: clamp(15px, 1.3vw, 17px);
+  max-width: 44ch;
+  margin: 18px 0 0;
+}
+/* .module-tags / .module-link inherit from style.css */
+
+/* per-chapter layered premium washes — base tone + white lift + deep anchor */
+.ch-erp {
+  background:
+    radial-gradient(ellipse 55% 60% at 22% 18%, oklch(100% 0 0 / 0.55), transparent 65%),
+    radial-gradient(ellipse 45% 50% at 85% 88%, oklch(38% 0.085 252 / 0.07), transparent 65%),
+    var(--blue-soft);
+}
+.ch-erp .chapter-art,
+.ch-erp .chapter-num { color: var(--blue-deep); }
+
+.ch-ai {
+  background:
+    radial-gradient(ellipse 50% 55% at 78% 20%, oklch(93% 0.03 232 / 0.7), transparent 60%),
+    linear-gradient(160deg, var(--surface) 10%, var(--blue-soft) 55%, var(--orange-soft) 100%);
+}
+.ch-ai .chapter-art,
+.ch-ai .chapter-num { color: var(--ink); }
+
+.ch-custom {
+  background:
+    radial-gradient(ellipse 55% 60% at 20% 82%, oklch(100% 0 0 / 0.5), transparent 65%),
+    radial-gradient(ellipse 45% 50% at 88% 15%, oklch(56% 0.17 40 / 0.08), transparent 65%),
+    var(--orange-soft);
+}
+.ch-custom .chapter-art,
+.ch-custom .chapter-num { color: var(--orange-deep); }
+
+/* numerals read embossed, art gets brand-tinted depth */
+.chapter-num { text-shadow: 0 2px 24px oklch(40% 0.08 250 / 0.12); }
+.chapter-art svg { filter: drop-shadow(0 8px 24px oklch(40% 0.08 250 / 0.18)); }
+
+/* soft blend edge where panels meet during the slide */
+.chapter::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 7vw;
+  pointer-events: none;
+  background: linear-gradient(90deg, oklch(100% 0 0 / 0.28), transparent);
+}
+
+/* tags float on the washes */
+.chapter .module-tags span {
+  background: oklch(100% 0 0 / 0.9);
+  box-shadow: 0 3px 10px -3px oklch(40% 0.06 250 / 0.18);
+}
+
+/* progress bar — bottom-center of the pinned viewport */
+.chapters-progress {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: clamp(22px, 4vh, 40px);
+  translate: -50% 0;
+  width: min(320px, 34vw);
+  height: 3px;
+  border-radius: 999px;
+  background: oklch(40% 0.02 250 / 0.16);
+  overflow: hidden;
+}
+.chapters-progress i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--blue), var(--orange));
+  transform: scaleX(0);
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* ---------- stacked fallback: small screens or reduced motion ---------- */
+@media (max-width: 899px), (prefers-reduced-motion: reduce) {
+  .chapters-viewport { height: auto; overflow: visible; }
+  .chapters-track { display: block; width: auto; height: auto; }
+  .chapter {
+    min-height: 0;
+    height: auto;
+    display: block;
+    padding: clamp(64px, 14vw, 110px) clamp(20px, 5vw, 64px);
+  }
+  .chapter-num {
+    font-size: 120px;
+    left: auto;
+    right: 10px;
+    top: 12px;
+    translate: none;
+  }
+  .chapter-art {
+    width: min(52vw, 260px);
+    top: auto;
+    right: -6vw;
+    bottom: -4vw;
+    translate: none;
+    opacity: 0.35;
+  }
+  .chapter-title { font-size: clamp(34px, 9vw, 48px); }
+  .chapters-progress { display: none; }
+}
