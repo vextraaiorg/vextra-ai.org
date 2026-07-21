@@ -183,24 +183,18 @@ export function initSections({ reduceMotion }) {
   });
 
   /* ---------- 6. custom — blueprint assembly ---------- */
-  const chain = $('.workflow-chain');
+  const chain = $('.custom-grid');
   if (chain) {
-    const items = $$('.workflow-item', chain);
-    items.forEach((item) => {
-      const conn = document.createElement('span');
-      conn.className = 'workflow-connector';
-      item.appendChild(conn);
-    });
+    const items = $$('.workflow-step', chain);
     const tl = gsap.timeline({ scrollTrigger: { trigger: chain, start: 'top 80%', once: true } });
     items.forEach((item, i) => {
       const at = reduceMotion ? 0 : i * 0.12;
-      tl.from(item, { x: reduceMotion ? 0 : -24, opacity: 0, duration: dur(0.5), ease: 'power2.out' }, at);
-      tl.from($('.workflow-connector', item), { height: 0, duration: dur(0.25), ease: 'none' }, at + (reduceMotion ? 0 : 0.3));
+      tl.from(item, { y: reduceMotion ? 0 : 28, opacity: 0, duration: dur(0.6), ease: 'power2.out' }, at);
     });
-    tl.from($$('.stack em', chain), {
-      scaleX: 0, transformOrigin: 'left', duration: dur(0.35),
-      stagger: reduceMotion ? 0 : 0.06, ease: 'power2.out',
-    }, reduceMotion ? 0 : 0.4);
+    tl.from($$('.step-indicator em', chain), {
+      scale: 0, duration: dur(0.35),
+      stagger: reduceMotion ? 0 : 0.06, ease: 'back.out(2)'
+    }, reduceMotion ? 0 : 0.3);
   }
 
   /* ---------- 7. why — stat counters ---------- */

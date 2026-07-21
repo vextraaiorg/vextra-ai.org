@@ -1,6 +1,34 @@
 /* Vextra AI — cinematic layer: preloader, smooth-scroll systems, cursor,
    text reveals, section choreography, dark finale. Loads after style.css. */
 
+:root {
+  /* Soft Structuralism premium light theme overrides */
+  --bg: oklch(98.2% 0.003 240);
+  --surface: oklch(100% 0 0);
+  --surface-2: oklch(96.3% 0.005 240);
+  --border: oklch(92% 0.006 240);
+  --border-strong: oklch(85% 0.01 240);
+  --muted: oklch(48% 0.012 245);
+  --muted-2: oklch(58% 0.012 245);
+
+  --shadow-sm: 0 1px 3px rgba(28, 39, 51, 0.02);
+  --shadow-md: 0 18px 48px -12px oklch(20% 0.02 240 / 0.04), 0 2px 8px -2px oklch(20% 0.02 240 / 0.02);
+  --shadow-lg: 0 32px 80px -20px oklch(20% 0.03 240 / 0.06), 0 4px 16px -4px oklch(20% 0.03 240 / 0.03);
+}
+
+/* Subtle blueprint technical grid overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(to right, oklch(0% 0 0 / 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0% 0 0 / 0.015) 1px, transparent 1px);
+  background-size: 54px 54px;
+}
+
 /* native scroll: fixed-nav offset for anchor jumps (replaces the old Lenis JS offset) */
 html { scroll-padding-top: 80px; }
 
@@ -261,14 +289,73 @@ html { scroll-padding-top: 80px; }
 
 ::selection { background: var(--blue-soft); color: var(--blue-deep); }
 
-/* buttons — gradient primary, lifted hovers */
-.btn { transition: box-shadow 0.25s var(--ease), background 0.25s var(--ease), border-color 0.25s var(--ease); }
-.btn-primary {
-  background: linear-gradient(135deg, oklch(24% 0.035 252), oklch(34% 0.075 248));
-  box-shadow: 0 10px 26px -10px oklch(38% 0.09 248 / 0.55), inset 0 1px 0 oklch(100% 0 0 / 0.12);
+/* buttons — primary with nested trailing icon island, custom spring-like physics */
+.btn {
+  border-radius: var(--radius-pill) !important;
+  padding: 10px 14px 10px 24px !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--border-strong) !important;
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), box-shadow 0.4s cubic-bezier(0.32, 0.72, 0, 1), background 0.4s cubic-bezier(0.32, 0.72, 0, 1) !important;
 }
-.btn-primary:hover { box-shadow: 0 16px 36px -12px oklch(45% 0.1 245 / 0.65), inset 0 1px 0 oklch(100% 0 0 / 0.16); }
-.btn-ghost:hover { border-color: var(--blue); background: oklch(93% 0.03 232 / 0.5); }
+
+.btn-primary {
+  background: var(--ink) !important;
+  color: var(--surface) !important;
+  border: 1px solid var(--ink) !important;
+  box-shadow: 0 6px 20px -6px oklch(19% 0.03 255 / 0.25), inset 0 1px 0 oklch(100% 0 0 / 0.1);
+}
+
+.btn-primary:hover {
+  background: oklch(24% 0.03 255) !important;
+  box-shadow: 0 12px 30px -8px oklch(19% 0.03 255 / 0.35), inset 0 1px 0 oklch(100% 0 0 / 0.15);
+}
+
+.btn-ghost {
+  background: var(--surface) !important;
+  color: var(--ink) !important;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-ghost:hover {
+  border-color: var(--ink) !important;
+  background: var(--surface-2) !important;
+}
+
+/* Button Icon Island wrapper */
+.btn-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), background 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+.btn-ghost .btn-icon {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.btn:hover {
+  transform: scale(0.97) translateY(-1px);
+}
+
+.btn:hover .btn-icon {
+  transform: translate(2px, -2px) scale(1.06);
+}
+
+.btn-primary:hover .btn-icon {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-ghost:hover .btn-icon {
+  background: rgba(0, 0, 0, 0.08);
+}
 
 /* hero — soft brand glow washes behind content */
 .hero { position: relative; }
@@ -287,15 +374,64 @@ html { scroll-padding-top: 80px; }
 /* kicker dot glow */
 .kicker::before { box-shadow: 0 0 8px oklch(70% 0.16 48 / 0.8); }
 
-/* cards + panels — lifted premium hovers */
-.flow-node, .interview-panel, .why-item, .form, .roadmap, .workflow-chain {
-  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+/* cards + panels — Doppelrand double-bezel card structure */
+.flow-node, .feature-visual, .why-item, .form, .workflow-step {
+  position: relative;
+  background: rgba(0, 0, 0, 0.012) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 32px !important;
+  padding: 34px 28px !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
-.why-item:hover, .flow-node:hover {
-  transform: translateY(-3px);
+
+.flow-node > *, .feature-visual > *, .why-item > *, .form > *, .workflow-step > * {
+  position: relative;
+  z-index: 2;
+}
+
+.flow-node::before, .feature-visual::before, .why-item::before, .form::before, .workflow-step::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  z-index: 1;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 26px;
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), background 0.4s var(--ease);
+}
+
+/* Specific inner spacing adjustments */
+.flow-node { padding: 30px 24px !important; }
+.flow-node::before { inset: 5px; border-radius: 27px; }
+
+.why-item:hover, .flow-node:hover, .workflow-step:hover {
+  transform: translateY(-4px);
+}
+
+.why-item:hover::before, .flow-node:hover::before, .workflow-step:hover::before {
+  border-color: var(--blue);
   box-shadow: var(--shadow-lg);
-  border-color: var(--border-strong);
+  background: oklch(100% 0 0 / 0.99);
 }
+
+/* Contact form dark override to preserve its design contrast */
+.contact.finale .form {
+  background: rgba(255, 255, 255, 0.015) !important;
+  border: 1px solid oklch(32% 0.03 252) !important;
+}
+.contact.finale .form::before {
+  background: oklch(21% 0.03 255) !important;
+  border-color: oklch(32% 0.03 252) !important;
+  box-shadow: 0 32px 80px -24px oklch(5% 0.02 255 / 0.6);
+}
+.contact.finale .form-submit .btn-icon {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 .why-item svg {
   padding: 10px; border-radius: 12px;
   background: var(--blue-soft); color: var(--blue-deep);
@@ -343,6 +479,95 @@ html { scroll-padding-top: 80px; }
 
 /* nav — stronger glass when scrolled */
 .nav.scrolled { backdrop-filter: blur(14px) saturate(1.4); }
+
+/* Custom full-width section styling */
+.custom-section {
+  padding: clamp(60px, 8vw, 110px) 0;
+  border-top: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.custom-section::before {
+  content: ''; position: absolute; pointer-events: none;
+  width: 44vw; height: 44vw; border-radius: 50%;
+  left: 50%; top: 50%; transform: translate(-50%, -50%);
+  background: radial-gradient(circle, oklch(70% 0.16 48 / 0.05), transparent 65%);
+}
+
+.custom-head {
+  text-align: center;
+  max-width: 680px;
+  margin-inline: auto;
+  margin-bottom: 56px;
+}
+.custom-head h3 {
+  font-size: clamp(32px, 4vw, 48px);
+  margin-top: 12px;
+}
+.custom-head p {
+  color: var(--muted);
+  font-size: 16px;
+  margin-top: 14px;
+}
+
+.custom-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.workflow-step {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.workflow-step .idx {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted-2);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.workflow-step h4 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+}
+
+.workflow-step p {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.workflow-step .step-indicator {
+  margin-top: 24px;
+  display: flex;
+  gap: 6px;
+}
+.workflow-step .step-indicator em {
+  font-style: normal;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .custom-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .custom-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* ---------- reduced motion: neutralize hidden initial states ---------- */
 @media (prefers-reduced-motion: reduce) {

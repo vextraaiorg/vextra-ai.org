@@ -96,9 +96,11 @@
 
     <div class="hero-actions">
       <a href="#contact" class="btn btn-primary">Talk to us
-        <svg viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.5M12 4V10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="btn-icon"><svg viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.5M12 4V10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
-      <a href="#modules" class="btn btn-ghost">See the three modules</a>
+      <a href="#modules" class="btn btn-ghost">See the three modules
+        <span class="btn-icon"><svg viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.5M12 4V10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
     </div>
 
     <div class="hero-meta">
@@ -117,7 +119,6 @@
   <div class="flow-mesh"></div>
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="kicker">How it fits together</span>
       <h2>One vendor. Three disciplines. One system.</h2>
       <p>The three modules aren't separate products bolted together — they're built to hand data to each other.</p>
     </div>
@@ -155,7 +156,6 @@
       <article class="chapter ch-erp">
         <span class="chapter-num" aria-hidden="true">01</span>
         <div class="chapter-inner">
-          <span class="kicker">What we build · 01 / 03</span>
           <h3 class="chapter-title">ERP<br>Solutions</h3>
           <p>Academic ERP built for the full student lifecycle — admissions through graduation — with a guided roadmap at every stage, not just record-keeping.</p>
           <div class="module-tags"><span>Admissions</span><span>Attendance &amp; Fees</span><span>Academic Roadmap</span></div>
@@ -164,14 +164,38 @@
           </a>
         </div>
         <div class="chapter-art" aria-hidden="true" data-depth="0.25">
-          <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="4.5" rx="1.2" stroke="currentColor" stroke-width="1.6"/><rect x="3.5" y="10" width="17" height="4.5" rx="1.2" stroke="currentColor" stroke-width="1.6"/><rect x="3.5" y="16.5" width="17" height="4.5" rx="1.2" stroke="currentColor" stroke-width="1.6"/></svg>
+          <div class="chapter-art-mockup erp-mockup">
+            <div class="mockup-header">
+              <div class="mockup-dots"><span></span><span></span><span></span></div>
+              <div class="mockup-title">Academic Lifecycle Planner</div>
+            </div>
+            <div class="mockup-body">
+              <div class="m-timeline">
+                <div class="m-step done">
+                  <div class="m-dot">✓</div>
+                  <div class="m-label">Admissions &amp; Onboarding</div>
+                </div>
+                <div class="m-step active">
+                  <div class="m-dot">02</div>
+                  <div class="m-label">Terms &amp; Attendance <span class="m-badge">Current</span></div>
+                </div>
+                <div class="m-step future">
+                  <div class="m-dot">03</div>
+                  <div class="m-label">Compliance &amp; Fees</div>
+                </div>
+                <div class="m-step future">
+                  <div class="m-dot">04</div>
+                  <div class="m-label">Placement Roadmap</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </article>
 
       <article class="chapter ch-ai">
         <span class="chapter-num" aria-hidden="true">02</span>
         <div class="chapter-inner">
-          <span class="kicker">What we build · 02 / 03</span>
           <h3 class="chapter-title">AI<br>Solutions</h3>
           <p>AI-based mock interviews and skill assessments that give students and job-seekers structured practice with real, scored feedback.</p>
           <div class="module-tags"><span>Mock Interviews</span><span>Skill Scoring</span><span>Feedback Reports</span></div>
@@ -180,14 +204,46 @@
           </a>
         </div>
         <div class="chapter-art" aria-hidden="true" data-depth="0.25">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="3.4" stroke="currentColor" stroke-width="1.6"/></svg>
+          <div class="chapter-art-mockup ai-mockup">
+            <div class="mockup-header">
+              <div class="mockup-dots"><span></span><span></span><span></span></div>
+              <div class="mockup-title">AI Assessment Engine</div>
+            </div>
+            <div class="mockup-body">
+              <div class="m-ai-dashboard">
+                <div class="m-ai-pulse">
+                  <div class="m-ai-waves">
+                    <span></span><span></span><span></span><span></span><span></span>
+                  </div>
+                  <div class="m-ai-feedback">"Structured answer, strong confidence"</div>
+                </div>
+                <div class="m-ai-scores">
+                  <div class="m-ai-gauge">
+                    <svg class="progress-ring" width="60" height="60">
+                      <circle class="progress-ring-bg" stroke="rgba(0,0,0,0.06)" stroke-width="4" fill="transparent" r="24" cx="30" cy="30"/>
+                      <circle class="progress-ring-bar" stroke="var(--blue)" stroke-width="4" fill="transparent" r="24" cx="30" cy="30" stroke-dasharray="150" stroke-dashoffset="30"/>
+                    </svg>
+                    <strong>82%</strong>
+                    <span>Structure</span>
+                  </div>
+                  <div class="m-ai-gauge">
+                    <svg class="progress-ring" width="60" height="60">
+                      <circle class="progress-ring-bg" stroke="rgba(0,0,0,0.06)" stroke-width="4" fill="transparent" r="24" cx="30" cy="30"/>
+                      <circle class="progress-ring-bar" stroke="var(--orange)" stroke-width="4" fill="transparent" r="24" cx="30" cy="30" stroke-dasharray="150" stroke-dashoffset="45"/>
+                    </svg>
+                    <strong>74%</strong>
+                    <span>Delivery</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </article>
 
       <article class="chapter ch-custom">
         <span class="chapter-num" aria-hidden="true">03</span>
         <div class="chapter-inner">
-          <span class="kicker">What we build · 03 / 03</span>
           <h3 class="chapter-title">Custom<br>Software</h3>
           <p>Software built around your business's exact requirements — internal tools, integrations, and systems nobody sells off-the-shelf.</p>
           <div class="module-tags"><span>Internal Tools</span><span>Integrations</span><span>Automation</span></div>
@@ -196,7 +252,34 @@
           </a>
         </div>
         <div class="chapter-art" aria-hidden="true" data-depth="0.25">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M8.5 6L3.5 12L8.5 18M15.5 6L20.5 12L15.5 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="chapter-art-mockup custom-mockup">
+            <div class="mockup-header">
+              <div class="mockup-dots"><span></span><span></span><span></span></div>
+              <div class="mockup-title">Custom Integration Blueprint</div>
+            </div>
+            <div class="mockup-body">
+              <div class="m-blueprint">
+                <div class="bp-node">
+                  <div class="bp-icon">🖴</div>
+                  <span>ERP Database</span>
+                </div>
+                <div class="bp-line">
+                  <span class="bp-pulse"></span>
+                </div>
+                <div class="bp-node">
+                  <div class="bp-icon">⚡</div>
+                  <span>AI Gateway</span>
+                </div>
+                <div class="bp-line">
+                  <span class="bp-pulse"></span>
+                </div>
+                <div class="bp-node">
+                  <div class="bp-icon">💻</div>
+                  <span>Client Portal</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </article>
 
@@ -279,25 +362,38 @@
   </div>
 </section>
 
-<!-- ============ CUSTOM SOFTWARE FEATURE ROW ============ -->
-<section class="feature-row tint-orange" id="custom">
+<!-- ============ CUSTOM SOFTWARE SECTION ============ -->
+<section class="custom-section tint-orange" id="custom">
   <div class="wrap">
-    <div class="feature-copy reveal">
+    <div class="custom-head reveal">
       <span class="kicker">Custom Software</span>
       <h3>Built to fit, not bent to fit.</h3>
       <p>When ERP and AI don't cover it, we build the rest — internal tools, integrations, and workflow software scoped to your business, not a template we're reselling.</p>
-      <ul class="feature-list">
-        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Fixed-scope discovery before a line of code is written</li>
-        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Integrates with what you already run — not a rip-and-replace</li>
-        <li><svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5L8 14.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Documented handoff and ongoing support after launch</li>
-      </ul>
     </div>
-    <div class="feature-visual reveal" data-d="0.1">
-      <div class="workflow-chain">
-        <div class="workflow-item"><span class="idx">01</span><div><strong>Discovery</strong><span>Map the exact workflow and constraints</span></div><div class="stack"><em style="background:var(--blue)"></em></div></div>
-        <div class="workflow-item"><span class="idx">02</span><div><strong>Architecture</strong><span>Design the system around your data</span></div><div class="stack"><em style="background:var(--blue)"></em><em style="background:var(--orange)"></em></div></div>
-        <div class="workflow-item"><span class="idx">03</span><div><strong>Build &amp; integrate</strong><span>Ship in scoped, reviewable stages</span></div><div class="stack"><em style="background:var(--orange)"></em></div></div>
-        <div class="workflow-item"><span class="idx">04</span><div><strong>Deploy &amp; support</strong><span>Handoff docs, then ongoing support</span></div><div class="stack"><em style="background:var(--ink)"></em></div></div>
+    <div class="custom-grid reveal" data-d="0.1">
+      <div class="workflow-step">
+        <span class="idx">01</span>
+        <h4>Discovery</h4>
+        <p>Map the exact workflow and constraints of your business.</p>
+        <div class="step-indicator"><em style="background:var(--blue)"></em></div>
+      </div>
+      <div class="workflow-step">
+        <span class="idx">02</span>
+        <h4>Architecture</h4>
+        <p>Design the system structure around your existing data.</p>
+        <div class="step-indicator"><em style="background:var(--blue)"></em><em style="background:var(--orange)"></em></div>
+      </div>
+      <div class="workflow-step">
+        <span class="idx">03</span>
+        <h4>Build &amp; integrate</h4>
+        <p>Ship clean, maintainable code in scoped, reviewable stages.</p>
+        <div class="step-indicator"><em style="background:var(--orange)"></em></div>
+      </div>
+      <div class="workflow-step">
+        <span class="idx">04</span>
+        <h4>Deploy &amp; support</h4>
+        <p>Documented handoff and ongoing support after product launch.</p>
+        <div class="step-indicator"><em style="background:var(--ink)"></em></div>
       </div>
     </div>
   </div>
@@ -313,7 +409,6 @@
 <section class="why" id="why">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="kicker">Why Vextra AI</span>
       <h2>What you get that a bigger vendor won't give you.</h2>
     </div>
 
@@ -399,7 +494,7 @@
         <span class="errmsg">Tell us a little about your project</span>
       </div>
       <button type="submit" class="btn btn-primary form-submit">Send message
-        <svg viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.5M12 4V10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="btn-icon"><svg viewBox="0 0 16 16" fill="none"><path d="M4 12L12 4M12 4H5.5M12 4V10.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </button>
       <p class="form-status"></p>
     </form>
