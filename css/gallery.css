@@ -169,16 +169,16 @@
 }
 
 .m-step.done .m-dot {
-  background: var(--blue-soft);
-  border-color: var(--blue);
-  color: var(--blue-deep);
+  background: var(--teal-soft);
+  border-color: var(--teal);
+  color: var(--teal-deep);
 }
 .m-step.done::before {
-  background: var(--blue);
+  background: var(--teal);
 }
 
 .m-step.active .m-dot {
-  background: var(--orange);
+  background: var(--orange-deep);
   border-color: var(--orange-deep);
   color: white;
   box-shadow: 0 0 10px oklch(70% 0.16 48 / 0.3);
@@ -229,7 +229,7 @@
 .m-ai-waves span {
   width: 2px;
   height: 100%;
-  background: var(--blue);
+  background: var(--teal);
   border-radius: 1px;
   animation: barScale 1s ease-in-out infinite alternate;
 }
@@ -371,19 +371,33 @@
 .ch-erp {
   background:
     radial-gradient(ellipse 55% 60% at 22% 18%, oklch(100% 0 0 / 0.55), transparent 65%),
-    radial-gradient(ellipse 45% 50% at 85% 88%, oklch(38% 0.085 252 / 0.07), transparent 65%),
-    var(--blue-soft);
+    radial-gradient(ellipse 45% 50% at 85% 88%, oklch(38% 0.085 196 / 0.07), transparent 65%),
+    var(--teal-soft);
 }
 .ch-erp .chapter-art,
-.ch-erp .chapter-num { color: var(--blue-deep); }
+.ch-erp .chapter-num { color: var(--teal-deep); }
 
+/* AI chapter: dark mode — distinct from the light teal/orange chapters either side */
 .ch-ai {
   background:
-    radial-gradient(ellipse 50% 55% at 78% 20%, oklch(93% 0.03 232 / 0.7), transparent 60%),
-    linear-gradient(160deg, var(--surface) 10%, var(--blue-soft) 55%, var(--orange-soft) 100%);
+    radial-gradient(ellipse 55% 60% at 78% 15%, oklch(45% 0.09 196 / 0.4), transparent 65%),
+    radial-gradient(ellipse 45% 50% at 15% 92%, oklch(45% 0.15 48 / 0.16), transparent 65%),
+    linear-gradient(160deg, oklch(16% 0.024 196) 0%, oklch(11% 0.02 196) 100%);
 }
 .ch-ai .chapter-art,
-.ch-ai .chapter-num { color: var(--ink); }
+.ch-ai .chapter-num { color: var(--teal-soft); }
+.ch-ai .chapter-title { color: oklch(97% 0.006 196); }
+.ch-ai .chapter-inner > p { color: oklch(72% 0.015 196); }
+.chapters .ch-ai .module-tags span { background: oklch(100% 0 0 / 0.08); border-color: oklch(100% 0 0 / 0.14); color: oklch(85% 0.01 196); box-shadow: none; }
+.ch-ai .module-link { color: oklch(97% 0.006 196); }
+.ch-ai .chapter-art-mockup { background: oklch(13% 0.022 196); border-color: oklch(28% 0.02 196); }
+.ch-ai .mockup-header { background: oklch(17% 0.024 196); border-bottom-color: oklch(28% 0.02 196); }
+.ch-ai .mockup-title { color: oklch(62% 0.02 196); }
+.ch-ai .mockup-body { background: oklch(13% 0.022 196); }
+.ch-ai .m-ai-pulse { background: oklch(17% 0.024 196); border-color: oklch(28% 0.02 196); }
+.ch-ai .m-ai-feedback, .ch-ai .m-ai-gauge strong { color: oklch(94% 0.008 196); }
+.ch-ai .m-ai-gauge span { color: oklch(62% 0.02 196); }
+.ch-ai .progress-ring-bg { stroke: oklch(100% 0 0 / 0.1); }
 
 .ch-custom {
   background:
@@ -395,8 +409,8 @@
 .ch-custom .chapter-num { color: var(--orange-deep); }
 
 /* numerals read embossed, art gets brand-tinted depth */
-.chapter-num { text-shadow: 0 2px 24px oklch(40% 0.08 250 / 0.12); }
-.chapter-art svg { filter: drop-shadow(0 8px 24px oklch(40% 0.08 250 / 0.18)); }
+.chapter-num { text-shadow: 0 2px 24px oklch(40% 0.08 196 / 0.12); }
+.chapter-art svg { filter: drop-shadow(0 8px 24px oklch(40% 0.08 196 / 0.18)); }
 
 /* soft blend edge where panels meet during the slide */
 .chapter::before {
@@ -408,7 +422,7 @@
 /* tags float on the washes */
 .chapter .module-tags span {
   background: oklch(100% 0 0 / 0.9);
-  box-shadow: 0 3px 10px -3px oklch(40% 0.06 250 / 0.18);
+  box-shadow: 0 3px 10px -3px oklch(40% 0.06 196 / 0.18);
 }
 
 /* progress bar — bottom-center of the pinned viewport */
@@ -421,14 +435,14 @@
   width: min(320px, 34vw);
   height: 3px;
   border-radius: 999px;
-  background: oklch(40% 0.02 250 / 0.16);
+  background: oklch(40% 0.02 196 / 0.16);
   overflow: hidden;
 }
 .chapters-progress i {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--blue), var(--orange));
+  background: linear-gradient(90deg, var(--teal), var(--orange));
   transform: scaleX(0);
   transform-origin: left;
   will-change: transform;

@@ -85,7 +85,10 @@ export function initSections({ reduceMotion }) {
   if (!reduceMotion) {
     const tracks = $$('.marquee-track');
     if (tracks.length) {
-      const loops = tracks.map((track) => gsap.to(track, { xPercent: -33.333, repeat: -1, ease: 'none', duration: 20 }));
+      /* duration derives from one copy's pixel width (scrollWidth/3) at a fixed
+         px/sec, so shorter/longer looped text keeps the same crawl speed instead
+         of a fixed 20s stretching short text into a crawl or squashing long text */
+      const loops = tracks.map((track) => gsap.to(track, { xPercent: -33.333, repeat: -1, ease: 'none', duration: (track.scrollWidth / 3) / 90 }));
       const skews = tracks.map((track) => gsap.quickSetter(track, 'skewX', 'deg'));
       let speed = 1;
       let skew = 0;
@@ -228,7 +231,7 @@ export function initSections({ reduceMotion }) {
      All values share the exact oklch(L% C H) shape, so GSAP interpolates the
      three numbers of the proxy string; onUpdate writes the var each frame. */
   {
-    const BG_DEFAULT = 'oklch(97.3% 0.008 240)'; /* matches :root --bg in style.css */
+    const BG_DEFAULT = 'oklch(97.3% 0.008 196)'; /* matches :root --bg in style.css */
     const bg = { c: BG_DEFAULT };
     let bgTween = null;
     const morph = (c) => {
@@ -240,8 +243,8 @@ export function initSections({ reduceMotion }) {
     };
     [
       ['.flow', BG_DEFAULT],              /* restores default scrolling back up past #erp */
-      ['#erp', 'oklch(95.5% 0.02 235)'],  /* soft blue */
-      ['#ai', 'oklch(97.5% 0.005 250)'],  /* near white */
+      ['#erp', 'oklch(95.5% 0.02 196)'],  /* soft teal */
+      ['#ai', 'oklch(14% 0.022 196)'],    /* dark mode */
       ['#custom', 'oklch(96.5% 0.025 60)'], /* warm */
       ['#why', BG_DEFAULT],
     ].forEach(([sel, color]) => {
