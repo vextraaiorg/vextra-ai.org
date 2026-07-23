@@ -126,7 +126,7 @@ h1, h2, h3, h4 {
 }
 .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 19px; }
 .brand-mark { width: 34px; height: 34px; position: relative; }
-.brand-mark svg { width: 100%; height: 100%; }
+.brand-mark svg, .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
 .nav-links {
   display: flex;
   align-items: center;
