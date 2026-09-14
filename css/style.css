@@ -144,9 +144,153 @@ h1, h2, h3, h4 {
   box-shadow: 0 1px 0 var(--border);
   padding-block: 12px;
 }
-.brand { display: flex; align-items: center; gap: 11px; font-family: var(--font-display); font-weight: 700; font-size: 20px; letter-spacing: -0.01em; }
-.brand-mark { width: 34px; height: 34px; position: relative; flex-shrink: 0; }
-.brand-mark svg, .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+}
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s var(--ease), filter 0.3s var(--ease);
+}
+.brand:hover .brand-mark img {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 10px rgba(206, 72, 145, 0.45));
+}
+
+/* ---------- brand logo animated boundary orbit ---------- */
+.brand-orbit {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+}
+.orbit-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  position: absolute;
+  inset: 0;
+}
+.orbit-track {
+  fill: none;
+  stroke: rgba(206, 72, 145, 0.22);
+  stroke-width: 1.2;
+  stroke-dasharray: 2 4;
+}
+.footer.dark .orbit-track {
+  stroke: rgba(206, 72, 145, 0.35);
+}
+.orbit-line {
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 40 92;
+  transform-origin: 25px 25px;
+  animation: orbitLineSpin 3.4s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+  filter: drop-shadow(0 0 4px rgba(206, 72, 145, 0.7));
+}
+.orbit-dot-wrap {
+  position: absolute;
+  inset: 0;
+  transform-origin: 25px 25px;
+  animation: orbitLineSpin 3.4s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+}
+.orbit-dot {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand-magenta);
+  box-shadow:
+    0 0 0 2px rgba(206, 72, 145, 0.25),
+    0 0 8px rgba(206, 72, 145, 0.9),
+    0 0 16px rgba(247, 170, 98, 0.7);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.orbit-radar {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(206, 72, 145, 0.4);
+  pointer-events: none;
+  animation: orbitRadarPing 3.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+@keyframes orbitLineSpin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes orbitRadarPing {
+  0% {
+    transform: translate(-50%, -50%) scale(0.65);
+    opacity: 0.85;
+    border-color: rgba(206, 72, 145, 0.6);
+  }
+  60% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0;
+    border-color: rgba(5, 113, 254, 0);
+  }
+}
+
+.brand:hover .orbit-line,
+.brand:hover .orbit-dot-wrap {
+  animation-duration: 1.7s;
+}
+.brand:hover .orbit-dot {
+  transform: translate(-50%, -50%) scale(1.35);
+  box-shadow:
+    0 0 0 3px rgba(206, 72, 145, 0.35),
+    0 0 14px rgba(206, 72, 145, 1),
+    0 0 22px rgba(251, 181, 93, 0.85);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-line, .orbit-dot-wrap, .orbit-radar {
+    animation: none;
+  }
+}
+
+/* Brand text lockup with tightened gap between Vextra and AI */
+.brand-name {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px; /* crisp tight lockup matching logo specifications */
+  letter-spacing: -0.015em;
+}
 .brand-text-accent {
   background: var(--gradient-text);
   -webkit-background-clip: text;
@@ -154,6 +298,7 @@ h1, h2, h3, h4 {
   color: transparent;
   -webkit-text-fill-color: transparent;
   font-weight: 750;
+  letter-spacing: -0.01em;
 }
 .nav-links {
   display: flex;
