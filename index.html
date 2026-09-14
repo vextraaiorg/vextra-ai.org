@@ -45,8 +45,8 @@
 <div class="scroll-progress" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="cursor-dot"></div>
-<div class="cursor-ring"></div>
 <div class="page-lift">
+<div id="top" aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 0; height: 0; pointer-events: none;"></div>
 
 <!-- ============ NAV ============ -->
 <nav class="nav">
@@ -95,7 +95,7 @@
 </div>
 
 <!-- ============ HERO ============ -->
-<header class="hero" id="top">
+<header class="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-fade"></div>
   <div class="hero-flash" aria-hidden="true"></div>

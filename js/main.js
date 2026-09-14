@@ -48,6 +48,17 @@ function initNav() {
     document.body.style.overflow = '';
     if (lenis) lenis.start();
   }));
+
+  /* smooth scroll to absolute top (y = 0) when clicking brand logo or #top links */
+  document.querySelectorAll('a[href="#top"], .brand').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (window.location.hash !== '#top') {
+        history.pushState(null, '', '#top');
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    });
+  });
 }
 
 /* ---------------- cursor dot + ring ---------------- */
