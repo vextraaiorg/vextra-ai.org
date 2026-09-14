@@ -79,22 +79,34 @@ export function initSections({ reduceMotion }) {
     });
   }
 
-  /* ---------- 3. marquees — infinite loop, velocity-reactive ----------
-     3 identical spans per track, so -33.333 xPercent wraps seamlessly.
-     reduceMotion: skip entirely — CSS hides the duplicate spans (static row). */
+  /* ---------- 3. marquees — infinite seamless loop, velocity-reactive ----------
+     Each track has 16 identical spans (8 per half). Translating by -50% shifts
+     exactly 1 full half, making the loop 100% gapless, continuous, and seamless. */
   if (!reduceMotion) {
     const tracks = $$('.marquee-track');
     if (tracks.length) {
-      /* duration derives from one copy's pixel width (scrollWidth/3) at a fixed
-         px/sec, so shorter/longer looped text keeps the same crawl speed instead
-         of a fixed 20s stretching short text into a crawl or squashing long text */
-      const loops = tracks.map((track) => gsap.to(track, { xPercent: -33.333, repeat: -1, ease: 'none', duration: (track.scrollWidth / 3) / 90 }));
+      const loops = tracks.map((track) => {
+        const baseSpan = track.querySelector('span');
+        const content = baseSpan ? baseSpan.outerHTML : '<span>Vextra.AI&nbsp;·&nbsp;</span>';
+        if (track.children.length < 16) {
+          let html = '';
+          for (let i = 0; i < 16; i++) html += content;
+          track.innerHTML = html;
+        }
+
+        return gsap.to(track, {
+          xPercent: -50,
+          repeat: -1,
+          ease: 'none',
+          duration: 30,
+        });
+      });
       const skews = tracks.map((track) => gsap.quickSetter(track, 'skewX', 'deg'));
       let speed = 1;
       let skew = 0;
       let lastY = window.scrollY;
       gsap.ticker.add(() => {
-        /* native scroll velocity: per-frame scrollY delta (same scale Lenis reported) */
+        /* native scroll velocity: per-frame scrollY delta */
         const y = window.scrollY;
         const v = y - lastY;
         lastY = y;
