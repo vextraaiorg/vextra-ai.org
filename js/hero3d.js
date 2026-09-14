@@ -6,11 +6,13 @@ import * as THREE from 'three';
    shader writes these attribute values straight to the sRGB canvas, so storing
    them unconverted keeps brand colors exact. */
 const srgb = (hex) => new THREE.Color().setHex(hex, THREE.LinearSRGBColorSpace);
-const TEAL = srgb(0x3fb0b3);
-const ORANGE = srgb(0xe08a3c);
-const INK = srgb(0x021818);
-const HAZE_TEAL = srgb(0x8fd4d6);
-const SOFT_TEAL = srgb(0x6fc2c4);
+const AZURE = srgb(0x0571fe);    // #0571fe Electric Blue / Azure (V mark right arm)
+const MAGENTA = srgb(0xce4891);  // #ce4891 Magenta Orchid (V mark base)
+const AMBER = srgb(0xf7aa62);    // #f7aa62 Radiant Amber (V mark left arm)
+const VIOLET = srgb(0x7e53be);   // #7e53be Indigo Violet (V mark blend)
+const INK = srgb(0x0a1120);      // #0a1120 Midnight obsidian
+const HAZE_AZURE = srgb(0x7db3ff); // #7db3ff Haze points
+const SOFT_AZURE = srgb(0x4090ff); // #4090ff
 
 /* ---------------- shared glow-point shader ----------------
    One shader serves hero nodes, outer haze, and the contact field —
@@ -57,7 +59,7 @@ const GLOW_FRAG = /* glsl */ `
     if (d > 0.5) discard;
     // soft radial core; under warp the hot core widens + alpha rises → streak feel
     float glow = smoothstep(0.5, 0.08 + uWarp * 0.22, d);
-    vec3 col = mix(vColor, vec3(0.78, 1.0, 1.0), uWarp * 0.6); // warp light shift
+    vec3 col = mix(vColor, vec3(0.85, 0.92, 1.0), uWarp * 0.6); // warp light shift
     gl_FragColor = vec4(col, min(glow * vAlpha * uOpacity * (1.0 + uWarp * 0.8), 1.0));
   }
 `;
@@ -80,7 +82,7 @@ function makeGlowMaterial(wobble) {
 
 /* ---------------- link-line shader ----------------
    aLineT runs 0→1 along each segment; a per-segment seed staggers a traveling
-   brightness pulse. Deliberately faint — B2B, not rave. */
+   brightness pulse. Colors match the brand Azure → Magenta → Amber spectrum. */
 const LINE_VERT = /* glsl */ `
   attribute float aLineT;
   attribute float aSeed;
@@ -98,15 +100,17 @@ const LINE_FRAG = /* glsl */ `
   varying float vLineT;
   varying float vSeed;
   void main() {
-    vec3 base = vec3(0.247, 0.690, 0.702);   // #3fb0b3
-    vec3 orange = vec3(0.878, 0.541, 0.235); // #e08a3c
+    vec3 azure = vec3(0.02, 0.443, 0.996);    // #0571fe
+    vec3 magenta = vec3(0.808, 0.282, 0.569); // #ce4891
+    vec3 amber = vec3(0.969, 0.667, 0.384);   // #f7aa62
     float speed = 0.08 + fract(vSeed * 7.31) * 0.10;
     float cycle = uTime * speed + vSeed;
     float p = fract(cycle);
     // each cycle a segment either carries a pulse or stays quiet (pseudo-random gate)
-    float gate = step(0.62, fract(vSeed * 13.7 + floor(cycle) * 0.618));
-    float pulse = smoothstep(0.16, 0.0, abs(vLineT - p)) * gate;
-    gl_FragColor = vec4(mix(base, orange, pulse * 0.8), (0.14 + pulse * 0.30) * uOpacity);
+    float gate = step(0.55, fract(vSeed * 13.7 + floor(cycle) * 0.618));
+    float pulse = smoothstep(0.18, 0.0, abs(vLineT - p)) * gate;
+    vec3 pulseCol = mix(magenta, amber, fract(vSeed * 3.17));
+    gl_FragColor = vec4(mix(azure, pulseCol, pulse * 0.9), (0.16 + pulse * 0.38) * uOpacity);
   }
 `;
 
@@ -182,7 +186,7 @@ export function initHero({ reduceMotion }) {
     size: () => 0.32 + Math.random() * 0.3,
     color: () => {
       const pick = Math.random();
-      return pick < 0.14 ? ORANGE : pick < 0.4 ? TEAL : INK;
+      return pick < 0.18 ? AMBER : pick < 0.38 ? MAGENTA : pick < 0.65 ? AZURE : pick < 0.82 ? VIOLET : INK;
     },
     alpha: () => 0, // rewritten below — alpha depends on the color pick
   });
@@ -192,7 +196,7 @@ export function initHero({ reduceMotion }) {
     const alphas = nodeGeo.getAttribute('aAlpha');
     for (let i = 0; i < NODE_COUNT; i++) {
       const isInk = Math.abs(cols.getX(i) - INK.r) < 0.01;
-      alphas.setX(i, isInk ? 0.4 : 0.9);
+      alphas.setX(i, isInk ? 0.35 : 0.95);
     }
   }
   const nodeMat = makeGlowMaterial(0.06);
@@ -247,7 +251,7 @@ export function initHero({ reduceMotion }) {
       pos[i * 3 + 2] = r * Math.cos(phi);
     },
     size: () => 0.1 + Math.random() * 0.1,
-    color: () => HAZE_TEAL,
+    color: () => HAZE_AZURE,
     alpha: () => 0.35,
   });
   const hazeMat = makeGlowMaterial(0.03);
@@ -340,7 +344,10 @@ export function initContactField({ reduceMotion }) {
       pos[i * 3 + 2] = (Math.random() - 0.5) * 7;
     },
     size: () => 0.12 + Math.random() * 0.34,
-    color: () => (Math.random() < 0.15 ? ORANGE : SOFT_TEAL),
+    color: () => {
+      const pick = Math.random();
+      return pick < 0.2 ? AMBER : pick < 0.5 ? MAGENTA : SOFT_AZURE;
+    },
     alpha: () => 0.25 + Math.random() * 0.5,
   });
   const mat = makeGlowMaterial(reduceMotion ? 0 : 0.5); // wobble doubles as the slow drift

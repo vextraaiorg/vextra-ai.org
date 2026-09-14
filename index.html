@@ -8,7 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Public+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Ccircle cx='8' cy='9' r='3.4' fill='%233FB0B3'/%3E%3Ccircle cx='26' cy='9' r='3.4' fill='%233FB0B3'/%3E%3Ccircle cx='17' cy='25' r='3.4' fill='%23E08A3C'/%3E%3Cpath d='M8 9 L17 25 L26 9' stroke='%23021818' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png" />
+<link rel="apple-touch-icon" href="favicon-192x192.png" />
+<link rel="shortcut icon" href="favicon.ico" />
 <link rel="stylesheet" href="css/style.css" />
 <link rel="stylesheet" href="css/cinematic.css" />
 <link rel="stylesheet" href="css/gallery.css" />
@@ -18,10 +21,17 @@
 <div class="preloader" aria-hidden="true">
   <div class="preloader-inner">
     <svg class="preloader-mark" viewBox="0 0 34 34" fill="none">
-      <circle class="pl-dot" cx="8" cy="9" r="3.4" fill="#5FD9DC"/>
-      <circle class="pl-dot" cx="26" cy="9" r="3.4" fill="#5FD9DC"/>
-      <circle class="pl-dot pl-dot-o" cx="17" cy="25" r="3.4" fill="#E08A3C"/>
-      <path class="pl-path" d="M8 9 L17 25 L26 9" stroke="#E8F5F5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="pl-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#0571fe"/>
+          <stop offset="50%" stop-color="#ce4891"/>
+          <stop offset="100%" stop-color="#f7aa62"/>
+        </linearGradient>
+      </defs>
+      <circle class="pl-dot" cx="8" cy="9" r="3.4" fill="#f7aa62"/>
+      <circle class="pl-dot" cx="26" cy="9" r="3.4" fill="#0571fe"/>
+      <circle class="pl-dot pl-dot-o" cx="17" cy="25" r="3.4" fill="#ce4891"/>
+      <path class="pl-path" d="M8 9 L17 25 L26 9" stroke="url(#pl-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <div class="preloader-word">
       <span class="pl-l"><span>V</span></span><span class="pl-l"><span>E</span></span><span class="pl-l"><span>X</span></span><span class="pl-l"><span>T</span></span><span class="pl-l"><span>R</span></span><span class="pl-l"><span>A</span></span><span class="pl-l pl-gap"><span>&nbsp;</span></span><span class="pl-l pl-ai"><span>A</span></span><span class="pl-l pl-ai"><span>I</span></span>
@@ -44,7 +54,7 @@
     <span class="brand-mark">
       <img src="Logo.png" alt="Vextra AI logo" />
     </span>
-    Vextra AI
+    Vextra <span class="brand-text-accent">AI</span>
   </a>
 
   <div class="nav-links">
@@ -562,7 +572,7 @@
           <span class="brand-mark">
             <img src="Logo.png" alt="Vextra AI logo" />
           </span>
-          Vextra AI
+          Vextra <span class="brand-text-accent">AI</span>
         </a>
         <p>ERP, AI, and custom software for business — engineered from India.</p>
       </div>

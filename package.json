@@ -1,0 +1,13 @@
+{
+  "name": "liquid-glass-agency",
+  "version": "1.0.0",
+  "description": "Vextra AI - Cinematic marketing site",
+  "scripts": {
+    "dev": "npx serve . -l 3000",
+    "start": "npx serve . -l 3000",
+    "serve:py": "python -m http.server 8137"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

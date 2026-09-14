@@ -231,7 +231,7 @@ export function initSections({ reduceMotion }) {
      All values share the exact oklch(L% C H) shape, so GSAP interpolates the
      three numbers of the proxy string; onUpdate writes the var each frame. */
   {
-    const BG_DEFAULT = 'oklch(97.3% 0.008 196)'; /* matches :root --bg in style.css */
+    const BG_DEFAULT = 'oklch(98.2% 0.005 260)'; /* matches :root --bg in style.css */
     const bg = { c: BG_DEFAULT };
     let bgTween = null;
     const morph = (c) => {
@@ -242,10 +242,10 @@ export function initSections({ reduceMotion }) {
       });
     };
     [
-      ['.flow', BG_DEFAULT],              /* restores default scrolling back up past #erp */
-      ['#erp', 'oklch(95.5% 0.02 196)'],  /* soft teal */
-      ['#ai', 'oklch(14% 0.022 196)'],    /* dark mode */
-      ['#custom', 'oklch(96.5% 0.025 60)'], /* warm */
+      ['.flow', BG_DEFAULT],               /* restores default scrolling back up past #erp */
+      ['#erp', 'oklch(96.2% 0.018 258)'],  /* soft azure */
+      ['#ai', 'oklch(14.5% 0.025 260)'],   /* cosmic obsidian dark */
+      ['#custom', 'oklch(96.8% 0.022 65)'], /* radiant warm amber */
       ['#why', BG_DEFAULT],
     ].forEach(([sel, color]) => {
       const el = $(sel);
