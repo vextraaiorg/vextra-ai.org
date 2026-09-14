@@ -9,10 +9,10 @@
   --surface-2:     oklch(96.2% 0.009 260);
   --ink:           oklch(17.5% 0.026 260);
   --fg:            var(--ink);
-  --muted:         oklch(47% 0.022 260);
-  --muted-2:       oklch(56% 0.018 260);
+  --muted:         oklch(34% 0.024 260);
+  --muted-2:       oklch(44% 0.020 260);
   --border:        oklch(90.5% 0.012 260);
-  --border-strong: oklch(82% 0.018 260);
+  --border-strong: oklch(78% 0.020 260);
 
   /* brand logo palette — sampled directly from V2 B.png and V2 C.png */
   --brand-blue:         #0571fe;
@@ -385,9 +385,9 @@ h1, h2, h3, h4 {
 .hero-inner { position: relative; z-index: 2; }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: var(--surface); border: 1px solid var(--border);
+  background: var(--surface); border: 1px solid var(--border-strong);
   padding: 6px 14px 6px 6px; border-radius: var(--radius-pill);
-  font-size: 13px; font-weight: 500; box-shadow: var(--shadow-sm);
+  font-size: 13px; font-weight: 600; color: var(--ink); box-shadow: var(--shadow-sm);
   opacity: 0; transform: translateY(16px);
 }
 .hero-badge .dot {
@@ -414,11 +414,14 @@ h1, h2, h3, h4 {
 }
 .hero-word { display: inline-block; opacity: 0; transform: translateY(28px); filter: blur(8px); margin-right: 0.22ch; }
 .hero-sub {
-  font-size: clamp(16px, 1.6vw, 19px);
-  color: var(--muted);
-  max-width: 46ch;
+  font-size: clamp(16px, 1.6vw, 19.5px);
+  color: oklch(14% 0.026 260); /* deep high-contrast dark ink */
+  font-weight: 500;
+  line-height: 1.62;
+  max-width: 48ch;
   margin-top: 22px;
   opacity: 0; transform: translateY(16px);
+  text-shadow: 0 1px 18px rgba(255, 255, 255, 0.95), 0 0 32px rgba(255, 255, 255, 0.85);
 }
 .hero-actions { display: flex; align-items: center; gap: 16px; margin-top: 34px; flex-wrap: wrap; opacity: 0; transform: translateY(16px); }
 .btn {
@@ -443,13 +446,26 @@ h1, h2, h3, h4 {
 
 .hero-meta {
   display: flex; align-items: center; gap: 28px;
-  margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border);
+  margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border-strong);
   flex-wrap: wrap;
   opacity: 0; transform: translateY(16px);
 }
-.hero-meta-item { display: flex; flex-direction: column; gap: 2px; }
-.hero-meta-item strong { font-family: var(--font-display); font-size: 22px; }
-.hero-meta-item span { font-size: 12.5px; color: var(--muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.07em; }
+.hero-meta-item { display: flex; flex-direction: column; gap: 3px; }
+.hero-meta-item strong {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ink);
+}
+.hero-meta-item span {
+  font-size: 12.5px;
+  color: oklch(18% 0.026 260); /* crisp dark readable labels */
+  font-family: var(--font-mono);
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-shadow: 0 1px 14px rgba(255, 255, 255, 0.95);
+}
 
 /* ---------- flow strip ---------- */
 .flow {
