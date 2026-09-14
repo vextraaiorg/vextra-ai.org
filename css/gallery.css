@@ -257,10 +257,11 @@
   color: var(--brand-magenta);
 }
 
-.m-ai-gauges {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+.m-ai-gauges,
+.m-ai-scores {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .m-ai-gauge {
@@ -417,9 +418,26 @@
 .ch-ai .mockup-title { color: oklch(62% 0.02 260); }
 .ch-ai .mockup-body { background: oklch(13% 0.022 260); }
 .ch-ai .m-ai-pulse { background: oklch(17% 0.024 260); border-color: oklch(28% 0.02 260); }
-.ch-ai .m-ai-feedback, .ch-ai .m-ai-gauge strong { color: oklch(94% 0.008 260); }
-.ch-ai .m-ai-gauge span { color: oklch(62% 0.02 260); }
-.ch-ai .progress-ring-bg { stroke: rgba(255, 255, 255, 0.1); }
+.ch-ai .m-ai-gauge {
+  background: oklch(17% 0.024 260);
+  border: 1px solid oklch(28% 0.02 260);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+.ch-ai .m-ai-feedback { color: oklch(95% 0.008 260); }
+.ch-ai .m-ai-gauge strong {
+  color: oklch(98% 0 0);
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+.ch-ai .m-ai-gauge span {
+  color: oklch(76% 0.015 260);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+}
+.ch-ai .progress-ring-bg { stroke: rgba(255, 255, 255, 0.14) !important; }
+.ch-ai .progress-ring-bar { stroke-linecap: round; }
 
 .ch-custom {
   background:
