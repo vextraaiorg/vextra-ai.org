@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Google Search Console Verification File
+Allow: /google9764d9ce9a857a8b.html
+
+# Sitemaps
+Sitemap: https://vextra-ai.org/sitemap.xml
