@@ -125,13 +125,18 @@ html { scroll-padding-top: 80px; }
 .flow-arrow svg { overflow: visible; }
 .flow-pulse { fill: var(--brand-magenta); }
 
-/* ---------- marquees: branded logo + stroke outline text ---------- */
+/* ---------- marquees: full brand logo image scroller ---------- */
 .marquee {
   overflow: hidden;
   border-block: 1px solid var(--border);
-  padding-block: clamp(14px, 1.8vw, 22px);
+  padding-block: clamp(16px, 2.2vw, 26px);
   position: relative;
   z-index: 1;
+  background: var(--surface);
+}
+.marquee.m2 {
+  background: var(--bg);
+  border-block: 1px solid var(--border);
 }
 .marquee-track {
   display: flex !important;
@@ -140,12 +145,6 @@ html { scroll-padding-top: 80px; }
   flex-wrap: nowrap !important;
   white-space: nowrap !important;
   will-change: transform;
-  font-family: var(--font-display);
-  font-size: clamp(34px, 5.5vw, 76px);
-  line-height: 1;
-  font-weight: 650;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
 }
 .marquee-item {
   display: inline-flex !important;
@@ -154,63 +153,41 @@ html { scroll-padding-top: 80px; }
   flex-wrap: nowrap !important;
   white-space: nowrap !important;
   flex: 0 0 auto !important;
-  gap: clamp(12px, 1.8vw, 24px);
-  padding-right: clamp(24px, 3.5vw, 52px);
+  gap: clamp(20px, 3vw, 44px);
+  padding-right: clamp(20px, 3vw, 44px);
   vertical-align: middle;
 }
-.marquee-logo-wrap {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 0.82em !important;
-  height: 0.82em !important;
-  max-width: 68px !important;
-  max-height: 68px !important;
-  flex-shrink: 0 !important;
-  background: transparent !important;
-}
-.marquee-logo,
-.marquee-track img {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-  max-height: 100% !important;
-  object-fit: contain !important;
+.marquee-logo-img {
   display: block !important;
+  height: clamp(32px, 3.8vw, 50px) !important;
+  width: auto !important;
+  max-width: none !important;
+  object-fit: contain !important;
   filter: none !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   image-rendering: -webkit-optimize-contrast;
-  transition: transform 0.25s ease;
-}
-.marquee-text {
-  flex: 0 0 auto !important;
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--muted-2);
-  opacity: 0.55;
-  line-height: 1;
-  transition: opacity 0.3s ease;
-}
-.marquee.m2 .marquee-text {
-  -webkit-text-stroke-color: var(--brand-magenta);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  user-select: none;
+  pointer-events: none;
 }
 .marquee-sep {
-  flex: 0 0 auto !important;
-  color: var(--muted-2);
-  opacity: 0.35;
-  font-weight: 300;
-  font-size: 0.8em;
-  padding-left: clamp(8px, 1.2vw, 16px);
-  -webkit-text-stroke: 0;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: clamp(16px, 2vw, 24px);
   line-height: 1;
+  color: var(--brand-magenta);
+  opacity: 0.45;
+  user-select: none;
+  font-weight: 300;
 }
-.marquee:hover .marquee-logo {
-  transform: scale(1.05);
-  filter: none !important;
+.marquee.m2 .marquee-sep {
+  color: var(--brand-blue);
 }
-.marquee:hover .marquee-text {
-  opacity: 0.85;
+.marquee:hover .marquee-logo-img {
+  transform: scale(1.03);
 }
 
 /* ---------- ERP roadmap line ---------- */
