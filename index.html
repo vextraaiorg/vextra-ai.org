@@ -717,22 +717,22 @@
     <form class="form reveal" data-d="0.1">
       <div class="field">
         <label for="f-name">Full name</label>
-        <input id="f-name" type="text" required />
+        <input id="f-name" name="name" type="text" required />
         <span class="errmsg">Enter your name</span>
       </div>
       <div class="field">
         <label for="f-email">Work email</label>
-        <input id="f-email" type="email" required />
+        <input id="f-email" name="email" type="email" required />
         <span class="errmsg">Enter a valid email</span>
       </div>
       <div class="field">
         <label for="f-company">Company / institution</label>
-        <input id="f-company" type="text" required />
+        <input id="f-company" name="company" type="text" required />
         <span class="errmsg">Enter a company or institution</span>
       </div>
       <div class="field">
         <label for="f-module">Which module?</label>
-        <select id="f-module">
+        <select id="f-module" name="module">
           <option>ERP Solutions</option>
           <option>AI Solutions</option>
           <option>Custom Software</option>
@@ -741,7 +741,7 @@
       </div>
       <div class="field">
         <label for="f-msg">What are you trying to solve?</label>
-        <textarea id="f-msg" rows="3" required></textarea>
+        <textarea id="f-msg" name="message" rows="3" required></textarea>
         <span class="errmsg">Tell us a little about your project</span>
       </div>
       <button type="submit" class="btn btn-primary form-submit">Send message

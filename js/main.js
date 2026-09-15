@@ -114,7 +114,7 @@ function initMagnetics() {
 function initForm() {
   const form = document.querySelector('.form');
   if (!form) return;
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     let valid = true;
     form.querySelectorAll('[required]').forEach((input) => {
@@ -130,14 +130,43 @@ function initForm() {
       status.className = 'form-status show';
       return;
     }
+    
     const btn = form.querySelector('.form-submit');
+    const originalBtnText = btn.textContent;
     btn.textContent = 'Sending…';
-    setTimeout(() => {
-      status.textContent = "Thanks — we'll reply within one business day.";
-      status.className = 'form-status show ok';
-      btn.textContent = 'Request sent';
-      form.querySelectorAll('input, textarea, select').forEach((f) => (f.disabled = true));
-    }, 700);
+    btn.disabled = true;
+
+    // We use Web3Forms to send emails directly from static HTML
+    const formData = new FormData(form);
+    
+    // ACTION REQUIRED: Put your Web3Forms Access Key here!
+    // Get one for free at https://web3forms.com
+    formData.append("access_key", "bb6fe2c9-946b-4cc3-a1fe-6f3701b179f8");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        status.textContent = "Thanks — we'll reply within one business day.";
+        status.className = 'form-status show ok';
+        btn.textContent = 'Request sent';
+        form.querySelectorAll('input, textarea, select').forEach((f) => (f.disabled = true));
+      } else {
+        status.textContent = "Something went wrong. Please check your access key.";
+        status.className = 'form-status show';
+        btn.textContent = originalBtnText;
+        btn.disabled = false;
+      }
+    } catch (err) {
+      status.textContent = "Network error. Please try again.";
+      status.className = 'form-status show';
+      btn.textContent = originalBtnText;
+      btn.disabled = false;
+    }
   });
 }
 
