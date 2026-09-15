@@ -86,8 +86,8 @@ export function initSections({ reduceMotion }) {
     const tracks = $$('.marquee-track');
     if (tracks.length) {
       const loops = tracks.map((track) => {
-        const baseSpan = track.querySelector('span');
-        const content = baseSpan ? baseSpan.outerHTML : '<span>Vextra.AI&nbsp;·&nbsp;</span>';
+        const baseItem = track.querySelector('.marquee-item') || track.firstElementChild;
+        const content = baseItem ? baseItem.outerHTML : '<span class="marquee-item"><span class="marquee-logo-wrap"><img src="Logo.png" alt="Vextra AI" class="marquee-logo" width="56" height="56" style="width:0.82em;height:0.82em;max-width:64px;max-height:64px;object-fit:contain;display:block;filter:none;background:transparent;" /></span><span class="marquee-text">Vextra.AI</span><span class="marquee-sep">·</span></span>';
         if (track.children.length < 16) {
           let html = '';
           for (let i = 0; i < 16; i++) html += content;
